@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\BackendChallenge.Application\BackendChallenge.Application.csproj" />
+    <ProjectReference Include="..\Banco.Domain\Banco.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
