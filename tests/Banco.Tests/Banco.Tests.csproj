@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\BackendChallenge.Domain\BackendChallenge.Domain.csproj" />
-    <ProjectReference Include="..\..\src\BackendChallenge.Application\BackendChallenge.Application.csproj" />
-    <ProjectReference Include="..\..\src\BackendChallenge.Infrastructure\BackendChallenge.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Banco.Domain\Banco.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Banco.Application\Banco.Application.csproj" />
+    <ProjectReference Include="..\..\src\Banco.Infrastructure\Banco.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
