@@ -20,4 +20,10 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BackendChallenge.Domain\BackendChallenge.Domain.csproj" />
+    <ProjectReference Include="..\..\src\BackendChallenge.Application\BackendChallenge.Application.csproj" />
+    <ProjectReference Include="..\..\src\BackendChallenge.Infrastructure\BackendChallenge.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
