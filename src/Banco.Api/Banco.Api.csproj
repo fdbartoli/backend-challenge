@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BackendChallenge.Infrastructure\BackendChallenge.Infrastructure.csproj" />
-    <ProjectReference Include="..\BackendChallenge.Application\BackendChallenge.Application.csproj" />
+    <ProjectReference Include="..\Banco.Application\Banco.Application.csproj" />
+    <ProjectReference Include="..\Banco.Infrastructure\Banco.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
