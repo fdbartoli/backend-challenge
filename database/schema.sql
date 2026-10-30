@@ -1,6 +1,7 @@
 -- schema.sql: estructura base. Idempotente. Se ejecuta desde masterSQL.sql (ver README).
 -- ids: AUTOINCREMENT, nunca se reutilizan (como IDENTITY en SQL Server).
 -- Dinero: TEXT, valor exacto (REAL tiene errores de redondeo). En SQL Server: DECIMAL(18,2).
+-- Fechas: DATETIME como texto ISO 8601, en UTC.
 -- FKs sin ON DELETE CASCADE: no se borran cuentas ni movimientos en cascada.
 
 PRAGMA foreign_keys = ON;
@@ -18,6 +19,7 @@ CREATE TABLE IF NOT EXISTS Clientes (
 );
 
 -- Cuentas -------------------------------------------------------------------------------
+-- El número de cuenta es único dentro de su sucursal.
 CREATE TABLE IF NOT EXISTS Cuentas (
     id           INTEGER PRIMARY KEY AUTOINCREMENT,
     idCliente    INTEGER     NOT NULL,
@@ -31,9 +33,12 @@ CREATE TABLE IF NOT EXISTS Cuentas (
     CONSTRAINT CK_Cuentas_codSucursal CHECK (length(codSucursal) = 4 AND codSucursal NOT GLOB '*[^0-9]*')
 );
 
+-- En SQLite la FK no crea índice.
 CREATE INDEX IF NOT EXISTS IX_Cuentas_idCliente ON Cuentas(idCliente);
 
 -- Movimientos ---------------------------------------------------------------------------
+-- tipo: texto libre. No se restringen los tipos en la base, se validan en el código.
+-- importe: siempre positivo; el tipo define si suma o resta.
 CREATE TABLE IF NOT EXISTS Movimientos (
     id           INTEGER PRIMARY KEY AUTOINCREMENT,
     idCuenta     INTEGER     NOT NULL,
