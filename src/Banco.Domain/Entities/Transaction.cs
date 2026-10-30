@@ -24,6 +24,7 @@ public class Transaction
         }
     }
 
+    // Required by EF Core to materialize entities from the database.
     private Transaction() { }
 
     public Transaction(int accountId, DateTime date, string type, string? description, decimal amount)

@@ -1,4 +1,7 @@
-﻿using Banco.Infrastructure.Persistence;
+﻿
+using Banco.Application.Interfaces.Persistence;
+using Banco.Infrastructure.Persistence;
+using Banco.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +24,9 @@ public static class DependencyInjection
             var databaseOptions = serviceProvider.GetRequiredService<IOptions<DatabaseOptions>>().Value;
             options.UseSqlite(databaseOptions.ConnectionString);
         });
+
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<IAccountRepository, AccountRepository>();
 
         return services;
     }
