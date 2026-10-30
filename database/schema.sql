@@ -1,8 +1,8 @@
--- schema.sql: estructura base. Idempotente. Se ejecuta desde masterSQL.sql (ver README).
--- ids: AUTOINCREMENT, nunca se reutilizan (como IDENTITY en SQL Server).
--- Dinero: TEXT, valor exacto (REAL tiene errores de redondeo). En SQL Server: DECIMAL(18,2).
--- Fechas: DATETIME como texto ISO 8601, en UTC.
--- FKs sin ON DELETE CASCADE: no se borran cuentas ni movimientos en cascada.
+-- schema.sql: base schema. Idempotent. Run through masterSQL.sql (see README).
+-- ids: AUTOINCREMENT, never reused (same as IDENTITY in SQL Server).
+-- Money: TEXT to keep exact values (REAL has rounding errors). In SQL Server: DECIMAL(18,2).
+-- Dates: DATETIME stored as ISO 8601 text, in UTC.
+-- FKs without ON DELETE CASCADE: accounts and transactions are never deleted in cascade.
 
 PRAGMA foreign_keys = ON;
 
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS Clientes (
 );
 
 -- Cuentas -------------------------------------------------------------------------------
--- El número de cuenta es único dentro de su sucursal.
+-- Account number is unique within its branch.
 CREATE TABLE IF NOT EXISTS Cuentas (
     id           INTEGER PRIMARY KEY AUTOINCREMENT,
     idCliente    INTEGER     NOT NULL,
@@ -33,12 +33,12 @@ CREATE TABLE IF NOT EXISTS Cuentas (
     CONSTRAINT CK_Cuentas_codSucursal CHECK (length(codSucursal) = 4 AND codSucursal NOT GLOB '*[^0-9]*')
 );
 
--- En SQLite la FK no crea índice.
+-- SQLite does not create an index for foreign keys.
 CREATE INDEX IF NOT EXISTS IX_Cuentas_idCliente ON Cuentas(idCliente);
 
 -- Movimientos ---------------------------------------------------------------------------
--- tipo: texto libre. No se restringen los tipos en la base, se validan en el código.
--- importe: siempre positivo; el tipo define si suma o resta.
+-- tipo: free text. Types are not restricted in the database; they are validated in code.
+-- importe: always positive; tipo defines whether it adds to or subtracts from the balance.
 CREATE TABLE IF NOT EXISTS Movimientos (
     id           INTEGER PRIMARY KEY AUTOINCREMENT,
     idCuenta     INTEGER     NOT NULL,
@@ -51,5 +51,5 @@ CREATE TABLE IF NOT EXISTS Movimientos (
     CONSTRAINT FK_Movimientos_Cuentas FOREIGN KEY (idCuenta) REFERENCES Cuentas(id)
 );
 
--- Movimientos de una cuenta ordenados por fecha. También cubre la FK.
+-- Account transactions ordered by date. Also covers the foreign key.
 CREATE INDEX IF NOT EXISTS IX_Movimientos_idCuenta_fecha ON Movimientos(idCuenta, fecha);
