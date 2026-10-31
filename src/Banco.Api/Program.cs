@@ -3,6 +3,7 @@ using Banco.Infrastructure;
 using Banco.Api.ErrorHandling;
 using Banco.Api.Middleware;
 using Serilog;
+using Banco.Application.Interfaces.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,14 +14,16 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .ReadFrom.Services(services)
         .Enrich.FromLogContext();
 });
+
 builder.Services.AddControllers();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSingleton<ICorrelationIdAccessor, HttpContextCorrelationIdAccessor>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
-
 
 var app = builder.Build();
 

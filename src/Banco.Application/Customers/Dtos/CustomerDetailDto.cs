@@ -5,4 +5,5 @@ public record CustomerDetailDto(
     string FirstName,
     string LastName,
     string Cuit,
-    IReadOnlyList<AccountSummaryDto> Accounts);
+    IReadOnlyList<AccountSummaryDto> Accounts,
+    BcraSituationDto Bcra);

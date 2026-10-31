@@ -3,16 +3,20 @@ using Banco.Application.Customers.Dtos;
 using Banco.Application.Interfaces.Persistence;
 using Banco.Domain.Entities;
 using Banco.Domain.ValueObjects;
+using Banco.Application.Interfaces.External;
+using Banco.Domain.Bcra;
 
 namespace Banco.Application.Customers;
 
 public class CustomerService : ICustomerService
 {
     private readonly ICustomerRepository _customerRepository;
+    private readonly IBcraClient _bcraClient;
 
-    public CustomerService(ICustomerRepository customerRepository)
+    public CustomerService(ICustomerRepository customerRepository, IBcraClient bcraClient)
     {
         _customerRepository = customerRepository;
+        _bcraClient = bcraClient;
     }
 
     public async Task<IReadOnlyList<CustomerSummaryDto>> GetAllAsync(CancellationToken cancellationToken)
@@ -35,10 +39,12 @@ public class CustomerService : ICustomerService
             throw new NotFoundException($"Customer with CUIT {cuit} was not found.");
         }
 
-        return ToDetailDto(customer);
+        var debtReport = await _bcraClient.GetDebtReportAsync(customerCuit, cancellationToken);
+
+        return ToDetailDto(customer, debtReport);
     }
 
-    private static CustomerDetailDto ToDetailDto(Customer customer)
+    private static CustomerDetailDto ToDetailDto(Customer customer, DebtReport? debtReport)
     {
         var accounts = customer.Accounts
             .Select(a => new AccountSummaryDto(a.Id, a.Number, a.BranchCode, a.Balance))
@@ -49,6 +55,26 @@ public class CustomerService : ICustomerService
             customer.FirstName,
             customer.LastName,
             customer.Cuit.Value,
-            accounts);
+            accounts,
+            ToBcraDto(debtReport));    }
+
+    private static BcraSituationDto ToBcraDto(DebtReport? debtReport)
+    {
+        if (debtReport is null)
+        {
+            return new BcraSituationDto(BcraStatus.NoData, null, null, null, new List<BcraEntityDto>());
+        }
+
+        var entities = debtReport.Entries
+            .Select(e => new BcraEntityDto(e.Institution, e.Situation, e.Amount, e.DaysOverdue))
+            .ToList();
+
+        return new BcraSituationDto(
+            BcraStatus.Available,
+            debtReport.Period,
+            debtReport.WorstSituation,
+            debtReport.TotalAmount,
+            entities);
     }
+
 }
