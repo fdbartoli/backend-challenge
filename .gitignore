@@ -483,3 +483,6 @@ $RECYCLE.BIN/
 
 # Bases SQLite locales
 *.db
+
+# Serilog file output
+logs/
