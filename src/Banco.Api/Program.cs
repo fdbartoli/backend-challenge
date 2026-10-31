@@ -4,6 +4,8 @@ using Banco.Api.ErrorHandling;
 using Banco.Api.Middleware;
 using Serilog;
 using Banco.Application.Interfaces.Context;
+using Banco.Api.HealthChecks;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,5 +44,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = HealthCheckResponseWriter.WriteAsync
+});
 
 app.Run();
