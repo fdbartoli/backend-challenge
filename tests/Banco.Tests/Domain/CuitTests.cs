@@ -46,7 +46,7 @@ public class CuitTests
     }
 
     [Fact]
-    public void Equality_WithSameValue_IsEqual()
+    public void Equals_WithSameValue_ReturnsTrue()
     {
         var first = new Cuit("30610252334");
         var second = new Cuit("30610252334");
