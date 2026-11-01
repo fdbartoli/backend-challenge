@@ -44,16 +44,16 @@ WITH datos (codSucursal, numero, fecha, tipo, descripcion, importe) AS (
         ('0001', '000100000001', '2026-09-01 09:00:00', 'TRANSFERENCIA RECIBIDA',                 'Cobro a proveedor',      '1500000.00'),
         ('0001', '000100000001', '2026-09-05 11:30:00', 'PAGO DE SERVICIOS (DEBITO AUTOMATICO)',  'Energía eléctrica',      '85000.50'),
         ('0001', '000100000001', '2026-09-10 15:45:00', 'TRANSFERENCIA EMITIDA',                  'Pago a proveedor',       '420000.00'),
-        ('0001', '000100000001', '2026-09-20 10:00:00', 'DEPÓSITO EN EFECTIVO',                   'Recaudación local',      '250000.00'),
-        ('0001', '000100000002', '2026-09-02 10:00:00', 'ACREDITACIÓN DE PLAZO FIJO',             'Vencimiento plazo fijo', '3000000.00'),
+        ('0001', '000100000001', '2026-09-20 10:00:00', 'DEPOSITO EN EFECTIVO',                   'Recaudación local',      '250000.00'),
+        ('0001', '000100000002', '2026-09-02 10:00:00', 'ACREDITACION DE PLAZO FIJO',            'Vencimiento plazo fijo', '3000000.00'),
         ('0001', '000100000002', '2026-09-15 12:00:00', 'TRANSFERENCIA INMEDIATA SALIENTE (CI)',  'Transferencia interna',  '1000000.00'),
         ('0002', '000200000001', '2026-09-01 08:00:00', 'HABERES / SUELDO ACREDITADO',            'Sueldo agosto',          '950000.00'),
-        ('0002', '000200000001', '2026-09-03 18:20:00', 'COMPRA TARJETA DE DÉBITO',               'Supermercado',           '45320.75'),
-        ('0002', '000200000001', '2026-09-07 09:10:00', 'EXTRACCIÓN EN EFECTIVO (CAJERO)',        NULL,                     '100000.00'),
-        ('0002', '000200000001', '2026-09-12 13:00:00', 'REINTEGRO TARJETA DE DÉBITO',            'Promoción supermercado', '4532.08'),
+        ('0002', '000200000001', '2026-09-03 18:20:00', 'COMPRA TARJETA DE DEBITO',               'Supermercado',           '45320.75'),
+        ('0002', '000200000001', '2026-09-07 09:10:00', 'EXTRACCION EN EFECTIVO (CAJERO)',        NULL,                     '100000.00'),
+        ('0002', '000200000001', '2026-09-12 13:00:00', 'REINTEGRO TARJETA DE DEBITO',           'Promoción supermercado', '4532.08'),
         ('0003', '000300000001', '2026-09-01 08:00:00', 'HABERES / SUELDO ACREDITADO',            'Sueldo agosto',          '720000.00'),
-        ('0003', '000300000001', '2026-09-10 10:00:00', 'PAGO DE PRÉSTAMO (CUOTA)',               'Cuota 3 de 12',          '180000.00'),
-        ('0003', '000300000001', '2026-09-25 09:30:00', 'DÉBITO AUTOMÁTICO TARJETA DE CRÉDITO',   'Resumen septiembre',     '230450.40')
+        ('0003', '000300000001', '2026-09-10 10:00:00', 'PAGO DE PRESTAMO (CUOTA)',               'Cuota 3 de 12',          '180000.00'),
+        ('0003', '000300000001', '2026-09-25 09:30:00', 'DEBITO AUTOMATICO TARJETA DE CREDITO',  'Resumen septiembre',     '230450.40')
 )
 INSERT INTO Movimientos (idCuenta, fecha, tipo, descripcion, importe)
 SELECT cu.id, d.fecha, d.tipo, d.descripcion, d.importe

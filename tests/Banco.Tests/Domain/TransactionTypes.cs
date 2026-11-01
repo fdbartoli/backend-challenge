@@ -7,8 +7,8 @@ public class TransactionTypesTests
 {
     [Theory]
     [InlineData("HABERES / SUELDO ACREDITADO")]
-    [InlineData("DEPÓSITO EN EFECTIVO")]
-    [InlineData("ACREDITACIÓN DE PRÉSTAMO")]
+    [InlineData("DEPOSITO EN EFECTIVO")]
+    [InlineData("ACREDITACION DE PRESTAMO")]
     public void IsCredit_WithCreditType_ReturnsTrue(string type)
     {
         Assert.True(TransactionTypes.IsCredit(type));
@@ -17,7 +17,7 @@ public class TransactionTypesTests
     [Theory]
     [InlineData("TRANSFERENCIA EMITIDA")]
     [InlineData("PAGO DE SERVICIOS (DEBITO AUTOMATICO)")]
-    [InlineData("PAGO DE PRÉSTAMO (CUOTA)")]
+    [InlineData("PAGO DE PRESTAMO (CUOTA)")]
     public void IsCredit_WithDebitType_ReturnsFalse(string type)
     {
         Assert.False(TransactionTypes.IsCredit(type));
