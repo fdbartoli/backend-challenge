@@ -13,7 +13,7 @@ RUN dotnet restore src/Banco.Api/Banco.Api.csproj
 COPY src/ src/
 RUN dotnet publish src/Banco.Api/Banco.Api.csproj -c Release -o /app/publish --no-restore
 
-# Database: built with the same versioned scripts, no EF migrations
+# Database: built with the same versioned scripts
 FROM debian:bookworm-slim AS database
 RUN apt-get update \
     && apt-get install -y --no-install-recommends sqlite3 \
