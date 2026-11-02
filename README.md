@@ -76,6 +76,17 @@ docker run -d --name banco-api -p 8080:8080 \
   banco-api
 ```
 
+## Datos de ejemplo
+
+| CUIT | Cliente | Situación BCRA |
+|---|---|---|
+| 30610252334 | Arcos Dorados Argentina S.A. | Con datos (CUIT real) |
+| 27990000021 | Lucía Fernández | Sin datos (CUIT ficticio) |
+| 20990000019 | Martín Gómez | Sin datos |
+| 20990000035 | Sofía Ramírez | Sin datos, sin cuentas |
+
+Cuentas: ids 1 a 4. La colección de Postman (`postman/`) tiene un request por cada caso.
+
 ## Fallback ante fallas del BCRA
 
 Si el BCRA no responde (error, timeout o circuito abierto), `GET /api/customers/{cuit}` devuelve **200** con los datos del cliente y sus cuentas, y la situación crediticia marcada como no disponible:
