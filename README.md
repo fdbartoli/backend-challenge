@@ -2,9 +2,8 @@
 
 ## Requisitos
 
-- .NET SDK 10
-- `sqlite3` en el PATH
-- Docker (solo para correrlo en contenedor)
+- **Con Docker:** solo Docker. El SDK de .NET y sqlite3 se usan dentro de la imagen durante el build.
+- **Sin Docker:** .NET SDK 10 y `sqlite3` en el PATH.
 
 ## Base de datos
 
