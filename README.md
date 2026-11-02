@@ -95,6 +95,10 @@ docker run -d --name banco-api -p 8080:8080 \
 
 Cuentas: ids 1 a 4. La colección de Postman (`postman/`) tiene un request por cada caso.
 
+## Postman
+
+Importar `postman/Banco.postman_collection.json`. La variable de colección `baseUrl` apunta a `http://localhost:5245` (Visual Studio); para Docker, cambiarla a `http://localhost:8080`.
+
 ## Fallback ante fallas del BCRA
 
 Si el BCRA no responde (error, timeout o circuito abierto), `GET /api/customers/{cuit}` devuelve **200** con los datos del cliente y sus cuentas, y la situación crediticia marcada como no disponible:
