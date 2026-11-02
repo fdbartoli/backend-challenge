@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -30,10 +30,6 @@
     <ProjectReference Include="..\..\src\Banco.Domain\Banco.Domain.csproj" />
     <ProjectReference Include="..\..\src\Banco.Application\Banco.Application.csproj" />
     <ProjectReference Include="..\..\src\Banco.Infrastructure\Banco.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Application\" />
   </ItemGroup>
 
 </Project>
