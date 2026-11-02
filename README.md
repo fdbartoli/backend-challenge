@@ -66,6 +66,14 @@ docker run -d --name banco-api -p 8080:8080 banco-api
 
 La API queda en http://localhost:8080. La base de datos se crea durante el build con `masterSQL.sql`.
 
+Para ver Swagger dentro del contenedor, levantarlo en entorno Development:
+
+```bash
+docker run -d --name banco-api -p 8080:8080 -e ASPNETCORE_ENVIRONMENT=Development banco-api
+```
+
+Swagger queda en http://localhost:8080/swagger.
+
 La configuración se pasa por variables de entorno:
 
 ```bash
