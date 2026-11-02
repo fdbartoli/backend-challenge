@@ -1,0 +1,100 @@
+{
+  "info": {
+    "name": "Banco API",
+    "description": "Endpoints de la API Banco. Cambiar la variable baseUrl a http://localhost:8080 para probar contra Docker.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5245"
+    }
+  ],
+  "item": [
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "List customers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/customers"
+          }
+        },
+        {
+          "name": "Customer by CUIT - with BCRA data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "X-Correlation-ID",
+                "value": "postman-demo-001"
+              }
+            ],
+            "url": "{{baseUrl}}/api/customers/30610252334",
+            "description": "Arcos Dorados: CUIT real con datos en la Central de Deudores. Si el BCRA no responde, bcra.status es Unavailable y el resto de los datos se devuelve igual."
+          }
+        },
+        {
+          "name": "Customer by CUIT - no BCRA data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/customers/27990000021",
+            "description": "CUIT ficticio: el BCRA responde 404 y la API lo informa como NoData."
+          }
+        },
+        {
+          "name": "Customer by CUIT - invalid CUIT",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/customers/12345",
+            "description": "CUIT con formato inválido: 400 con ProblemDetails."
+          }
+        },
+        {
+          "name": "Customer by CUIT - not found",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/customers/20990000043",
+            "description": "CUIT válido que no existe en la base: 404."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Accounts",
+      "item": [
+        {
+          "name": "Account by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/accounts/1",
+            "description": "Cuenta con sus movimientos, del más reciente al más antiguo. signedAmount es negativo para los débitos."
+          }
+        },
+        {
+          "name": "Account by id - not found",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/accounts/999"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/health",
+        "description": "Estado de la base y del circuito hacia el BCRA. 200 si está Healthy o Degraded, 503 si está Unhealthy."
+      }
+    }
+  ]
+}
