@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
-
 namespace Banco.Api.ErrorHandling;
 
 public class GlobalExceptionHandler : IExceptionHandler

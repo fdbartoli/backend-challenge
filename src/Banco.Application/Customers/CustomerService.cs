@@ -94,5 +94,4 @@ public class CustomerService : ICustomerService
             debtReport.TotalAmount,
             entities);
     }
-
 }
